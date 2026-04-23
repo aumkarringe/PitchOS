@@ -135,30 +135,30 @@ export default function CommandBar({ open, onOpenChange }: Props) {
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="bg-zinc-900 border-zinc-800 p-0 max-w-xl overflow-hidden">
+      <DialogContent className="panel-glass border-zinc-700/70 p-0 max-w-xl w-[calc(100vw-1rem)] sm:w-full overflow-hidden rounded-2xl">
         <DialogTitle className="sr-only">Match assistant command bar</DialogTitle>
         <DialogDescription className="sr-only">
           Ask questions about live matches and get concise insights.
         </DialogDescription>
         {/* Input */}
-        <div className="flex items-center gap-3 px-4 py-3 border-b border-zinc-800">
-          <Search size={16} className="text-zinc-500 shrink-0" />
+        <div className="flex items-center gap-3 px-4 py-3 border-b border-zinc-700/70 bg-zinc-900/40">
+          <Search size={16} className="text-zinc-400 shrink-0" />
           <input
             ref={inputRef}
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={handleKeyDown}
             placeholder="Ask anything about live matches..."
-            className="flex-1 bg-transparent text-sm text-zinc-100 placeholder:text-zinc-500 outline-none"
+            className="flex-1 min-w-0 bg-transparent text-sm text-zinc-100 placeholder:text-zinc-400 outline-none"
           />
           {loading && (
-            <Loader2 size={14} className="text-zinc-500 animate-spin shrink-0" />
+            <Loader2 size={14} className="text-cyan-300 animate-spin shrink-0" />
           )}
         </div>
 
         {/* Messages */}
         {messages.length > 0 && (
-          <div className="max-h-80 overflow-y-auto px-4 py-3 space-y-4">
+          <div className="max-h-[55vh] sm:max-h-80 overflow-y-auto px-4 py-3 space-y-4">
             {messages.map((msg, i) => (
               <div
                 key={i}
@@ -168,16 +168,16 @@ export default function CommandBar({ open, onOpenChange }: Props) {
                 )}
               >
                 {msg.role === "assistant" && (
-                  <div className="w-6 h-6 rounded-full bg-green-500/20 flex items-center justify-center shrink-0 mt-0.5">
-                    <Sparkles size={12} className="text-green-400" />
+                  <div className="w-6 h-6 rounded-full bg-cyan-500/20 border border-cyan-400/20 flex items-center justify-center shrink-0 mt-0.5">
+                    <Sparkles size={12} className="text-cyan-300" />
                   </div>
                 )}
                 <div
                   className={cn(
                     "text-sm rounded-xl px-3 py-2 max-w-[85%]",
                     msg.role === "user"
-                      ? "bg-zinc-700 text-zinc-100 rounded-tr-sm"
-                      : "bg-zinc-800 text-zinc-200 rounded-tl-sm"
+                      ? "bg-cyan-500/15 border border-cyan-400/20 text-zinc-100 rounded-tr-sm"
+                      : "bg-zinc-800/90 border border-zinc-700 text-zinc-200 rounded-tl-sm"
                   )}
                 >
                   {msg.text}
@@ -188,10 +188,10 @@ export default function CommandBar({ open, onOpenChange }: Props) {
             {/* Loading bubble */}
             {loading && (
               <div className="flex gap-3 justify-start">
-                <div className="w-6 h-6 rounded-full bg-green-500/20 flex items-center justify-center shrink-0">
-                  <Sparkles size={12} className="text-green-400" />
+                <div className="w-6 h-6 rounded-full bg-cyan-500/20 border border-cyan-400/20 flex items-center justify-center shrink-0">
+                  <Sparkles size={12} className="text-cyan-300" />
                 </div>
-                <div className="bg-zinc-800 rounded-xl rounded-tl-sm px-3 py-2">
+                <div className="bg-zinc-800 border border-zinc-700 rounded-xl rounded-tl-sm px-3 py-2">
                   <div className="flex gap-1 items-center h-4">
                     <span className="w-1.5 h-1.5 bg-zinc-500 rounded-full animate-bounce [animation-delay:0ms]" />
                     <span className="w-1.5 h-1.5 bg-zinc-500 rounded-full animate-bounce [animation-delay:150ms]" />
@@ -207,13 +207,13 @@ export default function CommandBar({ open, onOpenChange }: Props) {
         {/* Suggested questions */}
         {messages.length === 0 && (
           <div className="px-4 py-3">
-            <p className="text-xs text-zinc-600 mb-2">Suggested questions</p>
+            <p className="text-xs text-zinc-400 mb-2 uppercase tracking-wide">Suggested questions</p>
             <div className="space-y-1">
               {SUGGESTED_QUESTIONS.map((q) => (
                 <button
                   key={q}
                   onClick={() => ask(q)}
-                  className="w-full text-left text-xs text-zinc-400 hover:text-zinc-100 hover:bg-zinc-800 px-3 py-2 rounded-md transition-colors"
+                  className="w-full text-left text-xs text-zinc-300 hover:text-zinc-100 hover:bg-zinc-800/70 border border-transparent hover:border-zinc-700 px-3 py-2 rounded-lg transition-all"
                 >
                   {q}
                 </button>
@@ -223,14 +223,14 @@ export default function CommandBar({ open, onOpenChange }: Props) {
         )}
 
         {/* Footer */}
-        <div className="px-4 py-2 border-t border-zinc-800 flex items-center justify-between">
-          <span className="text-xs text-zinc-600">
+        <div className="px-4 py-2 border-t border-zinc-700/70 flex items-center justify-between bg-zinc-900/35">
+          <span className="text-xs text-zinc-400">
             {matches?.length || 0} live matches in context
           </span>
-          <div className="flex items-center gap-2 text-xs text-zinc-600">
-            <kbd className="bg-zinc-800 px-1.5 py-0.5 rounded text-zinc-500">↵</kbd>
+          <div className="flex items-center gap-2 text-xs text-zinc-400">
+            <kbd className="bg-zinc-800 border border-zinc-700 px-1.5 py-0.5 rounded text-zinc-400">↵</kbd>
             <span>to send</span>
-            <kbd className="bg-zinc-800 px-1.5 py-0.5 rounded text-zinc-500">esc</kbd>
+            <kbd className="bg-zinc-800 border border-zinc-700 px-1.5 py-0.5 rounded text-zinc-400">esc</kbd>
             <span>to close</span>
           </div>
         </div>

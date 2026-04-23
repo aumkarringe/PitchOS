@@ -39,7 +39,7 @@ function PlayerTile({ player }: { player: Player }) {
   return (
     <div
       className={cn(
-        "relative p-3 rounded-lg border transition-all duration-300",
+        "relative p-3 rounded-xl border transition-all duration-300 hover-lift",
         isActive && "bg-zinc-800/80 border-zinc-700",
         isSubbed && "bg-zinc-900/50 border-zinc-800 opacity-60",
         isInjured && "bg-red-950/30 border-red-900/50",
@@ -64,7 +64,7 @@ function PlayerTile({ player }: { player: Player }) {
         <span className="text-xs text-zinc-500 font-mono w-5">
           {player.number}
         </span>
-        <span className="text-xs font-medium text-zinc-100 truncate">
+        <span className="text-xs font-medium text-zinc-100 truncate tracking-wide">
           {player.name.split(" ").slice(-1)[0]}
         </span>
       </div>
@@ -102,19 +102,19 @@ export default function PlayerGrid({ players, homeTeam, awayTeam }: Props) {
   }
 
   return (
-    <div className="grid grid-cols-2 gap-6">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
       {/* Home Team */}
-      <div>
-        <div className="flex items-center gap-2 mb-3">
-          <h3 className="text-sm font-semibold text-zinc-100">{homeTeam}</h3>
+      <div className="min-w-0">
+        <div className="flex items-center gap-2 mb-3 min-w-0">
+          <h3 className="text-sm font-semibold text-zinc-100 truncate">{homeTeam}</h3>
           <Badge
             variant="outline"
-            className="text-xs border-zinc-700 text-zinc-400"
+            className="text-xs border-emerald-500/30 text-emerald-300 bg-emerald-500/10"
           >
             {homePlayers.filter((p) => p.status === "playing").length} active
           </Badge>
         </div>
-        <div className="grid grid-cols-2 gap-2">
+        <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-2 gap-2">
           {homePlayers.map((player) => (
             <PlayerTile key={player._id} player={player} />
           ))}
@@ -122,17 +122,17 @@ export default function PlayerGrid({ players, homeTeam, awayTeam }: Props) {
       </div>
 
       {/* Away Team */}
-      <div>
-        <div className="flex items-center gap-2 mb-3">
-          <h3 className="text-sm font-semibold text-zinc-100">{awayTeam}</h3>
+      <div className="min-w-0">
+        <div className="flex items-center gap-2 mb-3 min-w-0">
+          <h3 className="text-sm font-semibold text-zinc-100 truncate">{awayTeam}</h3>
           <Badge
             variant="outline"
-            className="text-xs border-zinc-700 text-zinc-400"
+            className="text-xs border-sky-500/30 text-sky-300 bg-sky-500/10"
           >
             {awayPlayers.filter((p) => p.status === "playing").length} active
           </Badge>
         </div>
-        <div className="grid grid-cols-2 gap-2">
+        <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-2 gap-2">
           {awayPlayers.map((player) => (
             <PlayerTile key={player._id} player={player} />
           ))}

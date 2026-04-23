@@ -14,7 +14,7 @@ export default function MatchGrid() {
         {[...Array(8)].map((_, i) => (
           <div
             key={i}
-            className="h-36 bg-zinc-900 border border-zinc-800 rounded-lg animate-pulse"
+            className="h-36 rounded-xl panel-glass border animate-pulse"
           />
         ))}
       </div>
@@ -23,10 +23,10 @@ export default function MatchGrid() {
 
   if (matches.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center h-64 text-zinc-500">
+      <div className="flex flex-col items-center justify-center h-64 text-zinc-300 border border-zinc-700/50 rounded-2xl panel-glass">
         <span className="text-4xl mb-3">⚽</span>
-        <p className="text-sm">No matches found</p>
-        <p className="text-xs mt-1">Check back when live matches are available</p>
+        <p className="text-sm font-medium">No live matches found</p>
+        <p className="text-xs mt-1 text-zinc-400">Check back when fixtures go in-play</p>
       </div>
     )
   }

@@ -1,12 +1,22 @@
 import type { Metadata } from "next"
-import { Inter } from "next/font/google"
+import { JetBrains_Mono, Space_Grotesk } from "next/font/google"
 import "./globals.css"
 import { ConvexClientProvider } from "./ConvexClientProvider"
 import { PostHogProvider } from "@/components/shared/PostHogProvider"
 import Sidebar from "@/components/layout/Sidebar"
 import TopBar from "@/components/layout/TopBar"
 
-const inter = Inter({ subsets: ["latin"], preload: false })
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+  variable: "--font-space-grotesk",
+  preload: false,
+})
+
+const jetBrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-jetbrains-mono",
+  preload: false,
+})
 
 export const metadata: Metadata = {
   title: "PitchOS — Live Match Command Center",
@@ -21,15 +31,17 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark" suppressHydrationWarning>
       <body
-        className={`${inter.className} bg-zinc-950 text-zinc-100 min-h-screen`}
+        className={`${spaceGrotesk.variable} ${jetBrainsMono.variable} bg-zinc-950 text-zinc-100 min-h-screen`}
       >
         <PostHogProvider>
           <ConvexClientProvider>
-            <div className="flex h-screen overflow-hidden">
+            <div className="flex h-dvh overflow-hidden">
               <Sidebar />
-              <div className="flex flex-col flex-1 overflow-hidden">
+              <div className="flex flex-col flex-1 overflow-hidden min-w-0">
                 <TopBar />
-                <main className="flex-1 overflow-auto p-6">{children}</main>
+                <main className="flex-1 overflow-auto px-4 py-4 pb-24 sm:px-6 sm:py-6 sm:pb-6">
+                  {children}
+                </main>
               </div>
             </div>
           </ConvexClientProvider>

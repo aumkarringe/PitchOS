@@ -23,10 +23,10 @@ function eventIcon(type: string) {
 
 function eventColor(type: string) {
   switch (type) {
-    case "Goal":  return "border-l-green-500 bg-green-500/5"
-    case "Card":  return "border-l-yellow-500 bg-yellow-500/5"
-    case "subst": return "border-l-blue-500 bg-blue-500/5"
-    default:      return "border-l-zinc-700 bg-zinc-900"
+    case "Goal":  return "border-l-emerald-400 bg-emerald-500/8"
+    case "Card":  return "border-l-amber-400 bg-amber-500/8"
+    case "subst": return "border-l-sky-400 bg-sky-500/8"
+    default:      return "border-l-zinc-600 bg-zinc-900/70"
   }
 }
 
@@ -65,7 +65,7 @@ export default function EventFeed({ matchId, homeTeam, awayTeam }: Props) {
           <div
             key={event._id}
             className={cn(
-              "flex items-start gap-3 p-3 rounded-md border-l-2 transition-all",
+                "flex items-start gap-3 p-3 rounded-lg border-l-2 border border-transparent hover:border-zinc-700/70 transition-colors",
               eventColor(event.type)
             )}
           >

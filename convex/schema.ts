@@ -14,7 +14,7 @@ export default defineSchema({
     homeLogo: v.string(),
     awayLogo: v.string(),
     updatedAt: v.number(),
-  }),
+  }).index("by_externalId", ["externalId"]),
 
   events: defineTable({
     matchId: v.string(),
@@ -24,7 +24,16 @@ export default defineSchema({
     team: v.string(),
     detail: v.string(),
     timestamp: v.number(),
-  }),
+  })
+    .index("by_matchId", ["matchId"])
+    .index("by_match_event_signature", [
+      "matchId",
+      "type",
+      "minute",
+      "playerName",
+      "team",
+      "detail",
+    ]),
 
   stats: defineTable({
     matchId: v.string(),
@@ -37,7 +46,7 @@ export default defineSchema({
     homePasses: v.number(),
     awayPasses: v.number(),
     updatedAt: v.number(),
-  }),
+  }).index("by_matchId", ["matchId"]),
 
   players: defineTable({
     matchId: v.string(),
@@ -49,5 +58,5 @@ export default defineSchema({
     minutesPlayed: v.number(),
     team: v.string(),
     teamName: v.string(),
-  }),
+  }).index("by_matchId_and_name_and_team", ["matchId", "name", "team"]),
 })

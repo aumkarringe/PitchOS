@@ -34,22 +34,27 @@ export default function TopBar() {
 
   return (
     <>
-      <header className="h-14 border-b border-zinc-800 bg-zinc-900/50 backdrop-blur-sm flex items-center justify-between px-6 shrink-0">
-        <div className="text-sm text-zinc-400">{date}</div>
+      <header className="h-14 border-b border-zinc-700/40 bg-zinc-950/35 backdrop-blur-md flex items-center justify-between px-4 sm:px-6 shrink-0 gap-2">
+        <div className="hidden sm:flex items-center gap-2 text-xs text-zinc-300 rounded-full border border-zinc-700/70 bg-zinc-900/70 px-3 py-1">
+          <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
+          <span className="truncate">{date}</span>
+        </div>
 
         <Button
           variant="outline"
           onClick={() => setOpen(true)}
-          className="flex items-center gap-2 text-zinc-400 border-zinc-700 bg-zinc-800/50 hover:bg-zinc-700 text-sm h-8 px-3"
+          className="flex items-center gap-2 text-zinc-300 border-zinc-700/80 bg-zinc-900/70 hover:bg-zinc-800 text-sm h-9 px-3 flex-1 sm:flex-none rounded-full"
         >
           <Search size={13} />
-          Ask anything...
-          <kbd className="ml-2 text-xs bg-zinc-700 px-1.5 py-0.5 rounded">
+          <span className="truncate text-left">Ask about match momentum...</span>
+          <kbd className="ml-auto hidden sm:inline-flex text-[10px] bg-zinc-700/90 border border-zinc-600 px-1.5 py-0.5 rounded">
             ⌘K
           </kbd>
         </Button>
 
-        <div className="text-sm text-zinc-400">{time}</div>
+        <div className="text-xs sm:text-sm text-cyan-200 tabular-nums min-w-12 text-right font-medium">
+          {time}
+        </div>
       </header>
 
       <CommandBar open={open} onOpenChange={setOpen} />

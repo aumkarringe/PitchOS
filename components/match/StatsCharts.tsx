@@ -79,22 +79,22 @@ export default function StatsCharts({ matchId, homeTeam, awayTeam }: Props) {
   return (
     <div className="space-y-6">
       {/* Possession */}
-      <div className="space-y-1">
+      <div className="space-y-1 rounded-xl border border-zinc-700/60 bg-zinc-900/40 p-3">
         <div className="flex justify-between text-xs text-zinc-400 mb-2">
-          <span className="text-blue-400 font-medium">{homeTeam}</span>
+          <span className="text-sky-300 font-medium">{homeTeam}</span>
           <span className="text-zinc-500">Possession</span>
-          <span className="text-orange-400 font-medium">{awayTeam}</span>
+          <span className="text-amber-300 font-medium">{awayTeam}</span>
         </div>
         <div className="flex h-2 rounded-full overflow-hidden bg-zinc-800">
           <div
-            className="bg-blue-500 transition-all duration-700"
+            className="bg-sky-500 transition-all duration-700"
             style={{ width: `${stats.homePossession}%` }}
           />
-          <div className="bg-orange-500 flex-1 transition-all duration-700" />
+          <div className="bg-amber-500 flex-1 transition-all duration-700" />
         </div>
         <div className="flex justify-between text-xs mt-1">
-          <span className="text-blue-400">{stats.homePossession}%</span>
-          <span className="text-orange-400">{stats.awayPossession}%</span>
+          <span className="text-sky-300">{stats.homePossession}%</span>
+          <span className="text-amber-300">{stats.awayPossession}%</span>
         </div>
       </div>
 
@@ -130,20 +130,20 @@ export default function StatsCharts({ matchId, homeTeam, awayTeam }: Props) {
             <YAxis hide />
             <Tooltip
               contentStyle={{
-                backgroundColor: "#18181b",
-                border: "1px solid #3f3f46",
+                backgroundColor: "#161c2d",
+                border: "1px solid #445375",
                 borderRadius: "6px",
                 fontSize: "12px",
               }}
             />
             <Bar dataKey="home" name={homeTeam} radius={[3, 3, 0, 0]}>
               {shotData.map((_, i) => (
-                <Cell key={i} fill="#3b82f6" />
+                <Cell key={i} fill="#38bdf8" />
               ))}
             </Bar>
             <Bar dataKey="away" name={awayTeam} radius={[3, 3, 0, 0]}>
               {shotData.map((_, i) => (
-                <Cell key={i} fill="#f97316" />
+                <Cell key={i} fill="#f59e0b" />
               ))}
             </Bar>
           </BarChart>

@@ -91,7 +91,7 @@ export default function SimulateIncident() {
       onClick={simulate}
       disabled={loading}
       variant="outline"
-      className="border-orange-800 text-orange-400 hover:bg-orange-950 hover:text-orange-300 gap-2"
+      className="border-amber-500/35 text-amber-200 bg-amber-500/10 hover:bg-amber-500/20 hover:text-amber-100 gap-2 w-full sm:w-auto rounded-full px-4"
     >
       <Zap size={14} className={loading ? "animate-pulse" : ""} />
       {loading ? "Simulating..." : "Simulate Incident"}

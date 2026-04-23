@@ -51,56 +51,56 @@ export default function MatchPage() {
     match.status === "1H" || match.status === "2H" || match.status === "HT"
 
   return (
-    <div className="space-y-6 max-w-6xl">
+    <div className="space-y-5 sm:space-y-6 max-w-6xl mx-auto">
       {/* Back button */}
       <Button
         variant="ghost"
         onClick={() => router.push("/")}
-        className="text-zinc-400 hover:text-white -ml-2"
+        className="text-zinc-300 hover:text-white -ml-2 w-fit"
       >
         <ArrowLeft size={16} className="mr-1" />
         All Matches
       </Button>
 
       {/* Match Header */}
-      <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-6">
-        <div className="flex items-center justify-between mb-6">
-          <span className="text-sm text-zinc-500">{match.league}</span>
+      <div className="panel-glass border rounded-2xl p-4 sm:p-6">
+        <div className="flex items-center justify-between mb-4 sm:mb-6 gap-2">
+          <span className="text-xs sm:text-sm text-zinc-300 uppercase tracking-wide truncate">{match.league}</span>
           {isLive ? (
-            <Badge className="bg-green-500/10 text-green-400 border-green-500/20 flex items-center gap-1.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
+            <Badge className="bg-emerald-500/10 text-emerald-300 border-emerald-500/20 flex items-center gap-1.5 text-xs sm:text-sm font-semibold">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
               LIVE {match.minute}'
             </Badge>
           ) : (
-            <Badge variant="outline" className="border-zinc-700 text-zinc-400">
+            <Badge variant="outline" className="border-zinc-700 text-zinc-400 text-xs sm:text-sm">
               {match.status === "FT" ? "Full Time" : match.status}
             </Badge>
           )}
         </div>
 
         {/* Score */}
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-2">
           {/* Home */}
           <div className="flex flex-col items-center gap-2 flex-1">
             {match.homeLogo && (
               <img
                 src={match.homeLogo}
                 alt={match.homeTeam}
-                className="w-12 h-12 object-contain"
+                className="w-10 h-10 sm:w-12 sm:h-12 object-contain drop-shadow-[0_0_12px_rgba(16,185,129,0.25)]"
               />
             )}
-            <span className="text-sm font-medium text-zinc-100 text-center">
+            <span className="text-sm font-medium text-zinc-100 text-center max-w-[12rem] truncate">
               {match.homeTeam}
             </span>
           </div>
 
           {/* Score */}
-          <div className="flex items-center gap-4 px-8">
-            <span className="text-5xl font-bold tabular-nums text-white">
+          <div className="flex items-center gap-3 sm:gap-4 px-2 sm:px-8 order-first sm:order-none">
+            <span className="text-4xl sm:text-5xl font-bold tabular-nums text-zinc-50">
               {match.homeScore}
             </span>
-            <span className="text-2xl text-zinc-600">—</span>
-            <span className="text-5xl font-bold tabular-nums text-white">
+            <span className="text-xl sm:text-2xl text-zinc-500">:</span>
+            <span className="text-4xl sm:text-5xl font-bold tabular-nums text-zinc-50">
               {match.awayScore}
             </span>
           </div>
@@ -111,10 +111,10 @@ export default function MatchPage() {
               <img
                 src={match.awayLogo}
                 alt={match.awayTeam}
-                className="w-12 h-12 object-contain"
+                className="w-10 h-10 sm:w-12 sm:h-12 object-contain drop-shadow-[0_0_12px_rgba(56,189,248,0.25)]"
               />
             )}
-            <span className="text-sm font-medium text-zinc-100 text-center">
+            <span className="text-sm font-medium text-zinc-100 text-center max-w-[12rem] truncate">
               {match.awayTeam}
             </span>
           </div>
@@ -122,9 +122,9 @@ export default function MatchPage() {
       </div>
 
       {/* Main Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 min-w-0">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6 min-w-0">
         {/* Player Grid - takes 2 cols */}
-        <div className="col-span-2 min-w-0 bg-zinc-900 border border-zinc-800 rounded-xl p-5">
+        <div className="col-span-2 min-w-0 panel-glass border rounded-2xl p-4 sm:p-5">
           <h2 className="text-sm font-semibold text-zinc-100 mb-4">
             Players
           </h2>
@@ -138,7 +138,7 @@ export default function MatchPage() {
         {/* Right column */}
         <div className="space-y-6 min-w-0">
           {/* Events Feed */}
-          <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-5 min-w-0">
+          <div className="panel-glass border rounded-2xl p-4 sm:p-5 min-w-0">
             <h2 className="text-sm font-semibold text-zinc-100 mb-4">
               Live Events
             </h2>
@@ -150,7 +150,7 @@ export default function MatchPage() {
           </div>
 
           {/* Stats */}
-          <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-5 min-w-0">
+          <div className="panel-glass border rounded-2xl p-4 sm:p-5 min-w-0">
             <h2 className="text-sm font-semibold text-zinc-100 mb-4">
               Match Stats
             </h2>

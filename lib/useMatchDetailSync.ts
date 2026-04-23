@@ -7,53 +7,73 @@ import { api } from "@/convex/_generated/api"
 export function useMatchDetailSync(matchId: string) {
   const upsertPlayer = useMutation(api.players.upsertPlayer)
   const addEvent = useMutation(api.events.addEvent)
+  const dedupeMatchEvents = useMutation(api.events.dedupeMatchEvents)
   const upsertStats = useMutation(api.stats.upsertStats)
+
+  const asNumber = (value: unknown, fallback = 0): number => {
+    if (typeof value === "number" && Number.isFinite(value)) return value
+    if (typeof value === "string") {
+      const cleaned = value.replace("%", "").trim()
+      const parsed = Number(cleaned)
+      if (Number.isFinite(parsed)) return parsed
+    }
+    return fallback
+  }
+
+  const asString = (value: unknown, fallback: string): string => {
+    if (typeof value === "string" && value.trim().length > 0) return value
+    return fallback
+  }
 
   const sync = async () => {
     try {
       const res = await fetch(`/api/match/${matchId}`)
       const data = await res.json()
 
+      // Clean any historical duplicates before applying fresh event updates.
+      await dedupeMatchEvents({ matchId })
+
       // Sync players from lineups
-      for (const team of data.lineups) {
+      for (const team of data.lineups || []) {
         const side = team.team.id === data.lineups[0]?.team.id ? "home" : "away"
 
         for (const player of team.startXI || []) {
           await upsertPlayer({
             matchId,
-            name: player.player.name,
-            number: player.player.number,
-            position: player.player.pos || "N/A",
+            name: asString(player.player.name, "Unknown"),
+            number: asNumber(player.player.number),
+            position: asString(player.player.pos, "N/A"),
             status: "playing",
             minutesPlayed: 90,
             team: side,
-            teamName: team.team.name,
+            teamName: asString(team.team.name, "Unknown Team"),
           })
         }
 
         for (const player of team.substitutes || []) {
           await upsertPlayer({
             matchId,
-            name: player.player.name,
-            number: player.player.number,
-            position: player.player.pos || "N/A",
+            name: asString(player.player.name, "Unknown"),
+            number: asNumber(player.player.number),
+            position: asString(player.player.pos, "N/A"),
             status: "benched",
             minutesPlayed: 0,
             team: side,
-            teamName: team.team.name,
+            teamName: asString(team.team.name, "Unknown Team"),
           })
         }
       }
 
       // Sync events
       for (const event of data.events || []) {
+        const detail = asString(event.detail, "Event")
         await addEvent({
           matchId,
-          type: event.type,
-          minute: event.time.elapsed,
-          playerName: event.player.name || "Unknown",
-          team: event.team.id === data.lineups[0]?.team.id ? "home" : "away",
-          detail: event.detail,
+          type: asString(event.type, "Event"),
+          minute: asNumber(event.time?.elapsed),
+          playerName: asString(event.player?.name, "Unknown"),
+          team: event.team?.id === data.lineups[0]?.team.id ? "home" : "away",
+          detail,
         })
       }
 
@@ -63,12 +83,12 @@ export function useMatchDetailSync(matchId: string) {
         const away = data.stats[1].statistics
 
         const getStat = (arr: any[], type: string) =>
-          arr.find((s: any) => s.type === type)?.value || 0
+          asNumber(arr.find((s: any) => s.type === type)?.value)
 
         await upsertStats({
           matchId,
-          homePossession: parseInt(getStat(home, "Ball Possession")) || 50,
-          awayPossession: parseInt(getStat(away, "Ball Possession")) || 50,
+          homePossession: getStat(home, "Ball Possession") || 50,
+          awayPossession: getStat(away, "Ball Possession") || 50,
           homeShots: getStat(home, "Total Shots"),
           awayShots: getStat(away, "Total Shots"),
           homeShotsOnTarget: getStat(home, "Shots on Goal"),

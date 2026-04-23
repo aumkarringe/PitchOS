@@ -52,23 +52,25 @@ export default function MatchCard({
     <Card
       onClick={handleClick}
       className={cn(
-        "bg-zinc-900 border-zinc-800 p-4 cursor-pointer",
-        "hover:border-zinc-600 hover:bg-zinc-800/80 transition-all duration-200",
-        isLive && "border-l-2 border-l-green-500"
+        "relative panel-glass border p-4 cursor-pointer hover-lift",
+        "hover:border-zinc-500/70 hover:bg-zinc-800/80 transition-all duration-200",
+        isLive && "border-l-2 border-l-emerald-400"
       )}
     >
+      <span className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-300/35 to-transparent" />
+
       {/* League + Status */}
       <div className="flex items-center justify-between mb-4">
-        <span className="text-xs text-zinc-500 truncate">{league}</span>
+        <span className="text-[11px] uppercase tracking-wide text-zinc-400 truncate">{league}</span>
         {isLive ? (
-          <Badge className="bg-green-500/10 text-green-400 border-green-500/20 text-xs flex items-center gap-1">
-            <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
+          <Badge className="bg-emerald-500/10 text-emerald-300 border-emerald-500/20 text-xs flex items-center gap-1 font-semibold">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
             {minute}'
           </Badge>
         ) : (
           <Badge
             variant="outline"
-            className="text-zinc-500 border-zinc-700 text-xs"
+            className="text-zinc-300 border-zinc-600/70 text-xs"
           >
             {status === "FT"
               ? "Full Time"
@@ -82,7 +84,7 @@ export default function MatchCard({
       {/* Teams + Score */}
       <div className="space-y-3">
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 min-w-0 pr-2">
             {homeLogo && (
               <img
                 src={homeLogo}
@@ -90,14 +92,14 @@ export default function MatchCard({
                 className="w-5 h-5 object-contain"
               />
             )}
-            <span className="text-sm font-medium text-zinc-100 truncate max-w-[140px]">
+            <span className="text-sm font-medium text-zinc-100 truncate">
               {homeTeam}
             </span>
           </div>
           <span
             className={cn(
               "text-lg font-bold tabular-nums",
-              homeScore > awayScore ? "text-white" : "text-zinc-400"
+                homeScore > awayScore ? "text-zinc-50" : "text-zinc-400"
             )}
           >
             {homeScore}
@@ -105,7 +107,7 @@ export default function MatchCard({
         </div>
 
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 min-w-0 pr-2">
             {awayLogo && (
               <img
                 src={awayLogo}
@@ -113,14 +115,14 @@ export default function MatchCard({
                 className="w-5 h-5 object-contain"
               />
             )}
-            <span className="text-sm font-medium text-zinc-100 truncate max-w-[140px]">
+            <span className="text-sm font-medium text-zinc-100 truncate">
               {awayTeam}
             </span>
           </div>
           <span
             className={cn(
               "text-lg font-bold tabular-nums",
-              awayScore > homeScore ? "text-white" : "text-zinc-400"
+                awayScore > homeScore ? "text-zinc-50" : "text-zinc-400"
             )}
           >
             {awayScore}
