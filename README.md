@@ -1,30 +1,11 @@
-# ⚽ PitchOS — Live Match Command Center
+# ⚽ PitchOS - Live Match Command Center
 
-A real-time football monitoring dashboard built as an OS-style interface for tracking live matches. Think infrastructure monitoring — but for football.
+A real-time football monitoring dashboard built as an OS-style interface for tracking live matches. Think infrastructure monitoring but for football.
 
-**[Live Demo](https://pitchos.vercel.app)** · **[GitHub](https://github.com/YOURUSERNAME/pitchos)**
+**[Live Demo](https://pitch-os-beta.vercel.app/)** · **[GitHub](https://github.com/aumkarringe/PitchOS)**
 
-![PitchOS Dashboard](./public/screenshot.png)
+<img width="1880" height="986" alt="image" src="https://github.com/user-attachments/assets/3587aba8-e259-463c-8808-4f01781e5711" />
 
----
-
-## Why I Built This
-
-I built PitchOS as a direct parallel to what Aranya is building with ClusterdOS.
-
-The core engineering challenge is identical:
-
-| ClusterdOS | PitchOS |
-|---|---|
-| Nodes going up/down | Players subbing in/out |
-| Pod crash events | Goals, cards, injuries |
-| CPU/memory metrics | Possession, shots, passes |
-| Multi-cluster overview | Multi-match overview |
-| Real-time distributed state | Real-time live match state |
-
-Both problems require the same solution: **making fast-changing, complex distributed state legible and beautiful for any user.** That's what this project demonstrates.
-
----
 
 ## Tech Stack
 
@@ -47,11 +28,11 @@ Both problems require the same solution: **making fast-changing, complex distrib
 
 ### 1. Real-Time Match Grid
 - Live scores updating automatically via Convex subscriptions
-- No polling, no refresh — data pushes to every connected client instantly
+- No polling, no refresh - data pushes to every connected client instantly
 - Skeleton loading states, empty states, error handling
 
 ### 2. Match Deep Dive
-- Full player lineup grid — active, subbed, and injured players
+- Full player lineup grid - active, subbed, and injured players
 - Color-coded status tiles (green = active, grey = subbed, red = injured)
 - Live events feed with smooth slide-in animations
 - Grafana-style stats: possession, shots, passes
@@ -202,15 +183,3 @@ NEXT_PUBLIC_CONVEX_URL=  # auto-set by Convex
 ```
 
 ---
-
-## What I'd Build Next
-
-- **GitOps-style match configuration** — define "watched matches" in a config file, dashboard auto-syncs
-- **Alert rules** — "notify me when any match goes to extra time"
-- **Historical replay** — scrub through match timeline like a video
-- **Multi-user presence** — see which matches your teammates are watching in real time
-- **Mobile app** — same Convex backend, React Native frontend
-
----
-
-*Built in 7 days as a demonstration of real-time infrastructure UI patterns.*
